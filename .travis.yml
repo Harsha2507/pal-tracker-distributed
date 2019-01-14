@@ -20,7 +20,8 @@ jobs:
       install: skip
       before_script:
         - echo "Testing GC overhead solution"
-        - "export JAVA_OPTS=-Xmx1g -XX:-UseGCOverheadLimit"
+        - "export JAVA_OPTS=-Xmx1g"
+        - "export JAVA_OPTS=-XX:-UseGCOverheadLimit"
         - echo "Testing GC overhead solution completed"
         - mysql -uroot < databases/create_databases.sql
         - ./gradlew testMigrate
@@ -41,7 +42,8 @@ jobs:
     - stage: deploy
       language: java
       script:
-        - "export JAVA_OPTS=-Xmx2g -XX:-UseGCOverheadLimit"
+        - "export JAVA_OPTS=-Xmx2g"
+        - "export JAVA_OPTS=-XX:-UseGCOverheadLimit"
         - echo "Downloading allocations server $RELEASE_TAG"
         - wget -P applications/allocations-server/build/libs https://github.com/$GITHUB_USERNAME/pal-tracker-distributed/releases/download/$RELEASE_TAG/allocations-server.jar
       before_deploy:
